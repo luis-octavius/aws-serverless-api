@@ -1,0 +1,26 @@
+{
+  "name": "aws-serverless-api",
+  "version": "1.0.0",
+  "description": "API CRUD AWS Serverless",
+  "main": "main.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "3.1039.0",
+    "@aws-sdk/lib-dynamodb": "3.1039.0",
+    "@types/aws-lambda": "8.10.161"
+  },
+  "devDependencies": {
+    "fast-check": "4.7.0",
+    "jest": "30.3.0",
+    "ts-jest": "29.4.9"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
+}
