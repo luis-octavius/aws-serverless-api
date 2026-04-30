@@ -36,8 +36,13 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
         }
         // construção dos valores que o update recebe 
         const fields = Object.keys(parsedBody);
+        // UpdateComand sintaxe é bem específica, com três campos: UpdateExpression, ExpressionAttributeNames e ExpressionAttributeValues
+        // UpdateExpression exemplo: "SET #nome = :nome, ..."
+        // é preciso que seja assim, uma vez que o DynamoDB tem palavras reservadas que podem conflitar com os campos de um objeto
         const updateExpression = "SET " + fields.map(f => `#${f} = :${f}`).join(", ");
+        // ExpressionAttributeNames exemplo: "{ "#name": "name" } 
         const expressionAttributeNames = Object.fromEntries(fields.map(f => [`#${f}`, f]));
+        // ExpressionAttributeValues exemplo: "{ ":name": "Luis" }
         const expressionAttributeValues = Object.fromEntries(fields.map(f => [`:${f}`, parsedBody[f]]));
         const result = await docClient.send(new UpdateCommand({
             TableName: TABLE_NAME,

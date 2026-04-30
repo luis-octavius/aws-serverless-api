@@ -13,7 +13,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     try {
         parsedBody = JSON.parse(event.body);
     } catch(error) {
-        console.error(error)
+        console.error(error);
         return buildErrorResponse(400, "Body inválido");
     }
 
@@ -21,6 +21,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
         const id = crypto.randomUUID();
         const item = {
             id: id, 
+            // achata o body para o mesmo nível (root)
             ...parsedBody
         }
         await docClient.send(new PutCommand({
